@@ -3,11 +3,13 @@ import * as joi from 'joi';
 
 interface EnvVars {
   NATS_SERVERS: string[];
+  DATABASE_URL: string;
 }
 
 const envsSchema = joi
   .object({
     NATS_SERVERS: joi.array().items(joi.string().uri()).required(),
+    DATABASE_URL: joi.string().uri().required(),
   })
   .unknown(true);
 
@@ -26,4 +28,5 @@ const envVars: EnvVars = value;
 
 export const envs = {
   natsServers: envVars.NATS_SERVERS,
+  databaseUrl: envVars.DATABASE_URL,
 };
