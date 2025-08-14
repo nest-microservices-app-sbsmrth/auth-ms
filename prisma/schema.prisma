@@ -14,9 +14,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ValidRoles {
+  ADMIN
+  USER
+}
+
 model User {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  email    String
-  name     String
-  password String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  firstname String
+  lastname  String
+  password  String
+  isActive  Boolean  @default(true)
+  roles     ValidRoles[] @default([USER])
 }
